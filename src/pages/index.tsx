@@ -1,3 +1,4 @@
+/* src/pages/index.tsx */
 import React, { useState, useEffect } from "react";
 import TaskForm from "@/components/TaskForm";
 import ActualForm from "@/components/ActualForm";
@@ -14,6 +15,12 @@ import {
   Legend,
 } from "recharts";
 
+// ScatterChart に渡すデータの型
+interface DataPoint {
+  x: string; // ISO8601 日時文字列
+  y: number; // パーセント値
+}
+
 const HomePage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -24,10 +31,17 @@ const HomePage: React.FC = () => {
     return () => window.removeEventListener("tasksUpdated", update);
   }, []);
 
-  const predictedData = tasks.map((t) => ({ x: t.createdAt, y: t.predicted }));
-  const actualData = tasks
-    .filter((t) => t.actual !== undefined)
-    .map((t) => ({ x: t.updatedAt, y: t.actual }));
+  const predictedData: DataPoint[] = tasks.map((t) => ({
+    x: t.createdAt,
+    y: t.predicted,
+  }));
+
+  const actualData: DataPoint[] = tasks
+    .filter((t): t is Task & { actual: number } => t.actual !== undefined)
+    .map((t) => ({
+      x: t.updatedAt!,
+      y: t.actual,
+    }));
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -47,11 +61,13 @@ const HomePage: React.FC = () => {
         <XAxis
           dataKey="x"
           name="日時"
-          tickFormatter={(value: any) => new Date(value).toLocaleDateString()}
+          tickFormatter={(value: string) =>
+            new Date(value).toLocaleDateString()
+          }
         />
         <YAxis type="number" dataKey="y" name="パーセント" domain={[0, 100]} />
         <Tooltip
-          labelFormatter={(label: any) => new Date(label).toLocaleString()}
+          labelFormatter={(label: string) => new Date(label).toLocaleString()}
         />
         <Legend />
         <Scatter name="予測" data={predictedData} />
