@@ -34,3 +34,35 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+# Confidence Calibration（反省ツール）
+
+## Live Demo
+
+https://syllabus-gold.vercel.app/
+
+## 概要
+
+タスクに対する「予測自信度」と「実績」を記録して、自己認識のズレを可視化・改善するツールです。
+
+## 主な機能
+
+- タスク登録：項目名＋予測自信度（％）
+- 実績入力：実際の結果（％）
+- グラフ表示：予測 vs 実績 を散布図で可視化
+- アラート：平均誤差が閾値を超えたら通知
+
+## 技術スタック
+
+- フロントエンド：Next.js, React, Tailwind CSS, Recharts
+- ストレージ：ブラウザ localStorage
+- 言語：TypeScript
+
+## セットアップ方法
+
+```bash
+git clone https://github.com/<あなたのユーザー名>/confidence-calibration.git
+cd confidence-calibration
+npm install
+npm run dev
+```
