@@ -47,10 +47,12 @@ const HomePage: React.FC = () => {
         <XAxis
           dataKey="x"
           name="日時"
-          tickFormatter={(value) => new Date(value).toLocaleDateString()}
+          tickFormatter={(value: any) => new Date(value).toLocaleDateString()}
         />
         <YAxis type="number" dataKey="y" name="パーセント" domain={[0, 100]} />
-        <Tooltip labelFormatter={(label) => new Date(label).toLocaleString()} />
+        <Tooltip
+          labelFormatter={(label: any) => new Date(label).toLocaleString()}
+        />
         <Legend />
         <Scatter name="予測" data={predictedData} />
         <Scatter name="実績" data={actualData} />
