@@ -20,6 +20,7 @@ interface DataPoint {
   x: string; // ISO8601 日時文字列
   y: number; // パーセント値
 }
+<div className="flex flex-col items-center justify-center min-h-screen p-4"></div>;
 
 const HomePage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -70,8 +71,8 @@ const HomePage: React.FC = () => {
           labelFormatter={(label: string) => new Date(label).toLocaleString()}
         />
         <Legend />
-        <Scatter name="予測" data={predictedData} />
-        <Scatter name="実績" data={actualData} />
+        <Scatter name="予測" data={predictedData} fill="blue" />
+        <Scatter name="実績" data={actualData} fill="red" />
       </ScatterChart>
     </div>
   );
